@@ -81,6 +81,7 @@ The Cloud Key2 that this is typically installed on is running the following:
 - APQ8053 8 Core with 3 GB RAM
 - 1TB HDD
 - 32GB OS/firmware eMMC
+
 so if you want to buy or rent ARM-based software, know that's what it's being
 developed for.
 

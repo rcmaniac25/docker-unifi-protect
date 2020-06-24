@@ -29,7 +29,6 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 97B46B8582C6571E \
  && apt-get install -y unifi-protect \
  && mkdir /srv/unifi-protect \
  && chown unifi-protect:unifi-protect /srv/unifi-protect
-# && ln -s /tmp /srv/unifi-protect/temp
 
 # Supply simple script to run postgres and unifi-protect
 COPY init /init
