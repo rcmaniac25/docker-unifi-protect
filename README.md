@@ -85,6 +85,8 @@ The Cloud Key2 that this is typically installed on is running the following:
 so if you want to buy or rent ARM-based software, know that's what it's being
 developed for.
 
+Check [here](https://help.ui.com/hc/en-us/articles/360015519974-UniFi-Protect-Ports-Used) for ports that are used.
+
 ### Versions
 - 1.12.5 - In progress (not all features functioning right now, other components, folder mappings, etc.)
 - 1.13.1 - Looking for .deb file to make multiple releases instead of large jumps

@@ -31,6 +31,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 97B46B8582C6571E \
  && chown unifi-protect:unifi-protect /srv/unifi-protect
 
 # Supply simple script to run postgres and unifi-protect
-COPY init /init
 COPY script_setup.py /script_setup.py
+COPY id_file /tool_id_src
+COPY fake-ubnt-tool.py /sbin/ubnt-tools
+COPY init /init
 CMD ["/init"]

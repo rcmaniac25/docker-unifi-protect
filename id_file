@@ -1,0 +1,12 @@
+board.sysid=0x0000
+board.name=UniFi Protect Unoffical Docker Container
+board.shortname=UPUDC
+board.subtype=
+board.reboot=30
+board.upgrade=000
+board.cpu.id=00000000-00000000
+board.uuid=<UUID>
+board.bom=123-12345-12
+board.hwrev=0x12345
+board.serialno=feedbadbeeef
+board.qrid=UBohai
