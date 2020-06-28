@@ -1,0 +1,9 @@
+Package: ubnt-tools
+Version: 0.1.0
+Architecture: all
+Section: utils
+Priority: optional
+Depends: python3
+Maintainer: Vinnie Simonetti <rcmaniac25@hotmail.com>
+Installed-Size: ??
+Description: Unoffical ubnt-tools fake to get around arbitrary requirements

@@ -63,7 +63,9 @@ docker run \
 ```
 
 NOTE: this hasn't been published anywhere yet, so you will need to build the image
-yourself at this point.
+yourself at this point: `docker build -t unifi-protect .`.
+
+If you'd like to build your own version of ubnt-tools: `dpkg -b ubnt-tools/ ubnt-tools-0.1.0.deb`
 
 After a minute or so for the service to start, visit
 `http://<ip-of-the-container>:7443/`.
@@ -88,11 +90,12 @@ developed for.
 Check [here](https://help.ui.com/hc/en-us/articles/360015519974-UniFi-Protect-Ports-Used) for ports that are used.
 
 ### Versions
-- 1.12.5 - In progress (not all features functioning right now, other components, folder mappings, etc.)
-- 1.13.1 - Looking for .deb file to make multiple releases instead of large jumps
+- 1.12.5 - In progress (last things to work on: clean container shutdowns, timedatectl support)
+- 1.13.1 - .deb in hand, will need to look into more
 - 1.13.2 - .deb in hand, will need to look into more
 - 1.13.3 - .deb in hand, but online and checking the contents reveal that Ubiquiti now forces ubnt-tool to be installed otherwise it forces closes
     - Previous versions simply looked for ubnt-tool and went "oh, this is a software install"
-    - This version says "if we can't find ubnt-tool, and this isn't the dev mode for NodeJS, we're force-closing"
+    - This version says "if we can't find ubnt-tool, and this isn't the dev mode for NodeJS, we're force-closing" (may not be an issue as I've created a fake ubnt-tool)
     - It indicates that Ubiqiti is semi-actively working to prevent self-installs
     - It also presents a slight worry because there is already a "if a failure happens, contact Ubiquiti with a IP and mac address" and the force-close is "unregistered device" which could mean that in the future, if you contact them with an "unregistered" device, the weblinks may not work.
+    - Prior versions may have used one update method (directly downloading .deb), but this versions seems to use apt-get to check for updates, but that requires keys for repo usage, which is not as easy to do unofficially

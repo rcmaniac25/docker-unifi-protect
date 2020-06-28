@@ -12,7 +12,7 @@ import os
 import uuid
 import random
 
-TOOL_ID_FILE_SRC = '/tool_id_src'
+TOOL_ID_FILE_SRC = '/usr/share/ubnt_tools/tool_id_src'
 TOOL_ID_FILE_DST = '/srv/unifi-protect/data/tool_id'
 
 def id_get_uuid():
