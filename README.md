@@ -21,6 +21,12 @@ time depending on where Ubiquiti takes things. Use at your own risk.
 
 This image should work out-of-the-box on a Linux ARM Docker host (like an RPi).
 
+Note: I (rcmaniac25) recommend an RPi with at least 2GB of RAM. Running an instance 
+with a single camera and nothing else on the Pi leaves me with 45-90MB of free
+RAM. With 2GB, I'm looking at 600MB of free RAM instead. From what I can tell, UniFi 
+Protect does check memory usage for... something, so I don't know what happens if it 
+runs out of RAM.
+
 ### Storage
 
 To ensure your UniFi Protect configs and recordings persist across restarts,

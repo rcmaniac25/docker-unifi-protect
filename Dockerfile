@@ -24,13 +24,13 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - \
 
 RUN apt-get install -y postgresql
 
-COPY ubnt-tools-0.1.0.deb /ubnt-tools-0.1.0.deb
+COPY ubnt-tools-0.1.1.deb /ubnt-tools-0.1.1.deb
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 97B46B8582C6571E \
  && add-apt-repository 'deb http://apt.ubnt.com bionic main' \
- && apt install -y /ubnt-tools-0.1.0.deb \
+ && apt install -y /ubnt-tools-0.1.1.deb \
  && apt-get install -y unifi-protect \
- && rm /ubnt-tools-0.1.0.deb \
+ && rm /ubnt-tools-0.1.1.deb \
  && mkdir /srv/unifi-protect \
  && chown unifi-protect:unifi-protect /srv/unifi-protect
 

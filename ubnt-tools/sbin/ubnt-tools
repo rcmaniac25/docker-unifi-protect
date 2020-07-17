@@ -11,9 +11,12 @@ import sys
 import os
 import uuid
 import random
+import json
 
-TOOL_ID_FILE_SRC = '/usr/share/ubnt_tools/tool_id_src'
-TOOL_ID_FILE_DST = '/srv/unifi-protect/data/tool_id'
+TOOL_ID_FILE_SRC = '/usr/share/ubnt_tools/tool_dat_src'
+TOOL_ID_FILE_DST = '/srv/unifi-protect/data/tool_dat'
+
+FIELD_ORDER = ["board.sysid", "board.name", "board.shortname", "board.subtype", "board.reboot", "board.upgrade", "board.cpu.id", "board.uuid", "board.bom", "board.hwrev", "board.serialno", "board.qrid"]
 
 def id_get_uuid():
 	# excessive AND semi-useless, but we want a UUID that will be consistant through container runs AND has enough uniqueness
@@ -22,21 +25,36 @@ def id_get_uuid():
 	unique_id = uuid.UUID("{0:08x}-{1:04x}-5{2:03x}-{3}{4:03x}-{5:012x}".format(random.randint(0, 0xffffffff), random.randint(0, 0xffff), random.randint(0, 0xfff), random.choice(['8', '9', 'a', 'b']), random.randint(0, 0xfff), uuid.getnode()))
 	return str(unique_id)
 
-def id_cmd():
-	if not os.path.isfile(TOOL_ID_FILE_DST):
+def id_cmd_write_file(id_uuid, src_file):
+	with open(src_file, "r") as src:
+		data = json.loads(src.read())
+		data["ubnt-tools"]["board.uuid"] = id_uuid
+
 		with open(TOOL_ID_FILE_DST, "w") as dst:
-			with open(TOOL_ID_FILE_SRC, "r") as src:
-				for line in src:
-					if "board.uuid=" in line:
-						dst.write("board.uuid={0}\n".format(id_get_uuid()))
-					else:
-						dst.write(line)
+			dst.write(json.dumps(data))
+		
+def id_cmd():
+	id_uuid = id_get_uuid()
+	if not os.path.isfile(TOOL_ID_FILE_DST):
+		id_cmd_write_file(id_uuid, TOOL_ID_FILE_SRC)
 
-	#XXX may want to check that the UUID matches (if system changes, we want a different UUID)
+	# this combines checking if the UUID changed and needs to be updated and printing it out for visual, with a safety in case something goes wrong
+	run_count = 0
+	while run_count <= 2:
+		run_count = run_count + 1
+		with open(TOOL_ID_FILE_DST, "r") as file:
+			data = json.loads(file.read())
 
-	with open(TOOL_ID_FILE_DST, "r") as file:
-		data = file.read()
-		print(data)
+			if data["ubnt-tools"]["board.uuid"] != id_uuid:
+				id_cmd_write_file(id_uuid, TOOL_ID_FILE_DST)
+				continue
+
+			for field in FIELD_ORDER:
+				if field in data["ubnt-tools"]:
+					print("{0}={1}".format(field, data["ubnt-tools"][field]))
+			break
+	if run_count > 2:
+		print("ERROR: could not id system")
 
 if __name__ == "__main__":
 	if len(sys.argv) == 2 and sys.argv[1] == "id":
